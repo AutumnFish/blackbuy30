@@ -11,13 +11,19 @@ Vue.use(ElementUI);
 import VueRouter from 'vue-router'
 // Vue.use一下
 Vue.use(VueRouter)
-// 写组件
+// 首页组件
 import index from './components/index.vue'
+// 详情组件
+import detail from './components/detail.vue'
 // 写规则
 const routes = [
   {
     path: '/index',
     component: index
+  },
+  {
+    path: '/detail',
+    component: detail
   }
 ]
 // 实例化路由对象

@@ -140,7 +140,11 @@
       <div class="main-tit">
         <h2>{{item.catetitle}}</h2>
         <p>
-          <a v-for="(it, i) in item.level2catelist" :key="i" href="/goods/43.html">{{it.subcatetitle}}</a>
+          <a
+            v-for="(it, i) in item.level2catelist"
+            :key="i"
+            href="/goods/43.html"
+          >{{it.subcatetitle}}</a>
           <a href="/goods/40.html">
             更多
             <i>+</i>
@@ -151,11 +155,10 @@
         <div class="wrap-box">
           <ul class="img-list">
             <li v-for="(it, i) in item.datas" :key="i">
-              <a href="#/site/goodsinfo/87" class>
+              <!-- <a href="#/site/goodsinfo/87" class> -->
+              <router-link to="/detail">
                 <div class="img-box">
-                  <img
-                    :src="it.img_url"
-                  >
+                  <img :src="it.img_url">
                 </div>
                 <div class="info">
                   <h3>{{it.artTitle}}</h3>
@@ -170,7 +173,8 @@
                     </span>
                   </p>
                 </div>
-              </a>
+                <!-- </a> -->
+              </router-link>
             </li>
           </ul>
         </div>
