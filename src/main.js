@@ -1,11 +1,9 @@
 import Vue from 'vue'
 import App from './App.vue'
 // 导入饿了么ui
-import ElementUI from 'element-ui';
-import 'element-ui/lib/theme-chalk/index.css';
-Vue.use(ElementUI);
-
-
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
+Vue.use(ElementUI)
 
 // 导入路由
 import VueRouter from 'vue-router'
@@ -22,7 +20,10 @@ const routes = [
     component: index
   },
   {
-    path: '/detail',
+    // path: '/detail',
+    // 动态路由匹配
+    path: '/detail/:id',
+    // path: '/detail/:cd',
     component: detail
   }
 ]
