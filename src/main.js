@@ -44,6 +44,11 @@ import './assets/statics/site/css/style.css'
 
 Vue.config.productionTip = false
 
+// 设置axios到原型上 方便共享
+import axios from 'axios'
+Vue.prototype.$axios = axios;
+
+
 new Vue({
   render: h => h(App),
   // 挂载到vue实例上

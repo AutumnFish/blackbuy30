@@ -187,7 +187,7 @@
 
 <script>
 // 导入axios
-import axios from "axios";
+// import axios from "axios";
 // 导入mement
 import moment from "moment";
 export default {
@@ -205,7 +205,7 @@ export default {
   },
   // 数据获取
   created() {
-    axios
+    this.$axios
       .get("http://111.230.232.110:8899/site/goods/gettopdata/goods")
       .then(res => {
         // console.log(res);
@@ -215,7 +215,7 @@ export default {
       });
 
     // 底部数据
-    axios
+    this.$axios
       .get("http://111.230.232.110:8899/site/goods/getgoodsgroup")
       .then(res => {
         // console.log(res);

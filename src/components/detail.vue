@@ -201,7 +201,7 @@
 
 <script>
 // 导入axios
-import axios from "axios";
+// import axios from "axios";
 // 导入mement
 import moment from "moment";
 export default {
@@ -220,7 +220,7 @@ export default {
     // console.log(this.$route)
     // console.log(this.$route.params.id)
     // 获取详情数据
-    axios
+    this.$axios
       .get(
         `http://111.230.232.110:8899/site/goods/getgoodsinfo/${
           this.$route.params.id
