@@ -13,6 +13,12 @@ Vue.use(VueRouter)
 import index from './components/index.vue'
 // 详情组件
 import detail from './components/detail.vue'
+// 会员中心容器
+import centerContainer from './components/centerContainer.vue'
+// 导入组件
+import vipgls from './components/vipgls.vue'
+//  订单详情
+import vipOrderDetail from './components/vipOrderDetail.vue'
 // 写规则
 const routes = [
   // 重定向
@@ -30,6 +36,31 @@ const routes = [
     path: '/detail/:id',
     // path: '/detail/:cd',
     component: detail
+  },
+  // 会员中心容器
+  {
+    path:"/centerContainer",
+    component:centerContainer,
+    // 嵌套路由
+    children:[
+      { 
+        // 嵌套路由不需要写 /
+        // 匹配的是 /centerContainer/vipgls
+        path:'vipgls',
+        component:vipgls
+      },
+      { 
+        // 嵌套路由不需要写 /
+        // 匹配的是 /centerContainer/vipOrderDetail
+        path:'vipOrderDetail',
+        component:vipOrderDetail
+      },
+      // 重定向 根目录 去看鼓励师 
+      {
+        path:'',// 等同于 /
+        redirect:'vipgls'
+      }
+    ]
   }
 ]
 // 实例化路由对象
