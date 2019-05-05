@@ -104,6 +104,7 @@
                           sucmsg=" "
                           data-type="*10-1000"
                           nullmsg="请填写评论内容！"
+                          v-model.trim="message"
                         ></textarea>
                         <span class="Validform_checktip"></span>
                       </div>
@@ -114,6 +115,7 @@
                           type="submit"
                           value="提交评论"
                           class="submit"
+                          @click="submit"
                         >
                         <span class="Validform_checktip"></span>
                       </div>
@@ -209,7 +211,9 @@ export default {
       // 评论数据
       comments: [],
       // 总数
-      totalcount: 0
+      totalcount: 0,
+      // 评论 信息
+      message: ""
     };
   },
   // 方法
@@ -243,6 +247,28 @@ export default {
       this.pageIndex = val;
       // 重新获取数据
       this.getComments();
+    },
+    // 提交评论
+    submit() {
+      if (this.message === "") {
+        // this.$message.error("哥们，写点东西呗");
+        this.$message.warning("哥们，写点东西呗");
+        return;
+      }
+      this.$axios
+        .post(`site/validate/comment/post/goods/${this.$route.params.id}`, {
+          commenttxt: this.message
+        })
+        .then(res => {
+          // console.log(res);
+          if(res.data.status===0){
+            this.$message.success(res.data.message)
+            // 清空内容
+            this.message = ''
+            // 重新获取评论数据
+            this.getComments()
+          }
+        });
     }
   },
   created() {
