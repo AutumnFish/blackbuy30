@@ -13,7 +13,13 @@
         <div class="wrap-box">
           <div class="left-925">
             <div class="goods-box clearfix">
-              <div class="pic-box"></div>
+              <div class="pic-box">
+                <el-carousel height="330px">
+                  <el-carousel-item v-for="item in imglist" :key="item.id">
+                    <img :src="item.thumb_path" alt="" class='slider-img'>
+                  </el-carousel-item>
+                </el-carousel>
+              </div>
               <div class="goods-spec">
                 <h1>{{goodsinfo.title}}</h1>
                 <p class="subtitle">{{goodsinfo.sub_title}}</p>
@@ -102,8 +108,7 @@
                   </li>
                 </ul>
               </div>
-              <div class="tab-content entry" style="display: block;" v-html="goodsinfo.content">
-              </div>
+              <div class="tab-content entry" style="display: block;" v-html="goodsinfo.content"></div>
               <div class="tab-content" style="display: block;">
                 <div class="comment-box">
                   <div id="commentForm" name="commentForm" class="form-box">
@@ -221,18 +226,14 @@ export default {
     // console.log(this.$route.params.id)
     // 获取详情数据
     this.$axios
-      .get(
-        `/site/goods/getgoodsinfo/${
-          this.$route.params.id
-        }`
-      )
+      .get(`/site/goods/getgoodsinfo/${this.$route.params.id}`)
       .then(res => {
         // console.log(res);
         this.goodsinfo = res.data.message.goodsinfo;
         this.hotgoodslist = res.data.message.hotgoodslist;
         this.imglist = res.data.message.imglist;
       });
-  },
+  }
   // 过滤器
   // filters: {
   //   formatTime(value) {
@@ -246,8 +247,14 @@ export default {
 </script>
 
 <style>
-.tab-content img{
+.tab-content img {
   display: block;
   width: 100%;
+}
+.pic-box{
+  width: 395px;
+}
+.pic-box .slider-img{
+  height: 100%;
 }
 </style>
