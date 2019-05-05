@@ -123,28 +123,16 @@
                     <p
                       style="margin: 5px 0px 15px 69px; line-height: 42px; text-align: center; border: 1px solid rgb(247, 247, 247);"
                     >暂无评论，快来抢沙发吧！</p>
-                    <li>
+                    <li v-for="(item, index) in comments" :key="index">
                       <div class="avatar-box">
                         <i class="iconfont icon-user-full"></i>
                       </div>
                       <div class="inner-box">
                         <div class="info">
-                          <span>匿名用户</span>
-                          <span>2017/10/23 14:58:59</span>
+                          <span>{{item.user_name}}</span>
+                          <span>{{item.add_time}}</span>
                         </div>
-                        <p>testtesttest</p>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="avatar-box">
-                        <i class="iconfont icon-user-full"></i>
-                      </div>
-                      <div class="inner-box">
-                        <div class="info">
-                          <span>匿名用户</span>
-                          <span>2017/10/23 14:59:36</span>
-                        </div>
-                        <p>很清晰调动单很清晰调动单</p>
+                        <p>{{item.content}}</p>
                       </div>
                     </li>
                   </ul>
@@ -166,12 +154,16 @@
                 <ul class="side-img-list">
                   <li v-for="(item, index) in hotgoodslist" :key="index">
                     <div class="img-box">
-                      <a href="#/site/goodsinfo/90" class>
+                      <!-- <a href="#/site/goodsinfo/90" class> -->
+                      <router-link :to="'/detail/'+item.id">
                         <img :src="item.img_url">
-                      </a>
+                      </router-link>
+                      <!-- </a> -->
                     </div>
                     <div class="txt-box">
-                      <a href="#/site/goodsinfo/90" class>{{item.title}}</a>
+                      <!-- <a href="#/site/goodsinfo/90" class> -->
+                      <router-link :to="'/detail/'+item.id">{{item.title}}</router-link>
+                      <!-- </a> -->
                       <span>{{item.add_time | formatTime}}</span>
                     </div>
                   </li>
@@ -203,8 +195,33 @@ export default {
       // 购买数量
       num: 1,
       // 是否显示描述
-      showDesc: true
+      showDesc: true,
+      // 页码
+      pageIndex: 1,
+      // 页容量
+      pageSize: 10,
+      // 评论数据
+      comments: [],
+      // 总数
+      totalcount: 0
     };
+  },
+  // 方法
+  methods: {
+    // 获取评论的方法
+    getComments() {
+      this.$axios
+        .get(
+          `site/comment/getbypage/goods/${this.$route.params.id}?pageIndex=${
+            this.pageIndex
+          }&pageSize=${this.pageSize}`
+        )
+        .then(res => {
+          // console.log(res);
+          this.totalcount = res.data.totalcount;
+          this.comments = res.data.message;
+        });
+    }
   },
   created() {
     // console.log(this.$route)
@@ -218,6 +235,24 @@ export default {
         this.hotgoodslist = res.data.message.hotgoodslist;
         this.imglist = res.data.message.imglist;
       });
+
+    // 获取评论数据
+    this.getComments();
+  },
+  // 侦听器
+  watch: {
+    "$route.params.id"(nw) {
+      // 重新获取商品详情
+      this.$axios.get(`/site/goods/getgoodsinfo/${nw}`).then(res => {
+        // console.log(res);
+        this.goodsinfo = res.data.message.goodsinfo;
+        this.hotgoodslist = res.data.message.hotgoodslist;
+        this.imglist = res.data.message.imglist;
+      });
+
+      // 获取 评论
+      this.getComments()
+    }
   }
   // 过滤器
   // filters: {
