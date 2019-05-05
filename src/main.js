@@ -51,6 +51,16 @@ Vue.prototype.$axios = axios;
 // 设置axios的基地址
 axios.defaults.baseURL = 'http://111.230.232.110:8899';
 
+
+
+// 定义全局过滤器
+// 导入moment
+import moment from 'moment'
+Vue.filter('formatTime',(value)=>{
+  // 处理时间并返回
+  return moment(value).format('YYYY年MM月DD日')
+})
+
 new Vue({
   render: h => h(App),
   // 挂载到vue实例上
