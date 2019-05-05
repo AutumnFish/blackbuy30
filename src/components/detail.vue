@@ -137,11 +137,17 @@
                     </li>
                   </ul>
                   <div class="page-box" style="margin: 5px 0px 0px 62px;">
-                    <div id="pagination" class="digg">
-                      <span class="disabled">« 上一页</span>
-                      <span class="current">1</span>
-                      <span class="disabled">下一页 »</span>
-                    </div>
+                    <!-- 分页器 -->
+                    <el-pagination
+                      @size-change="handleSizeChange"
+                      @current-change="handleCurrentChange"
+                      :current-page="pageIndex"
+                      :page-sizes="[5, 10, 15, 18]"
+                      :page-size="pageSize"
+                      layout="total, sizes, prev, pager, next, jumper"
+                      :total="totalcount"
+                      background
+                    ></el-pagination>
                   </div>
                 </div>
               </div>
@@ -221,6 +227,22 @@ export default {
           this.totalcount = res.data.totalcount;
           this.comments = res.data.message;
         });
+    },
+    // 页容量改变
+    handleSizeChange(val) {
+      console.log(`每页 ${val} 条`);
+      // 保存页码
+      this.pageSize = val;
+      // 重新获取数据
+      this.getComments();
+    },
+    // 当前页改变
+    handleCurrentChange(val) {
+      // console.log(`当前页: ${val}`);
+      // 修改页码
+      this.pageIndex = val;
+      // 重新获取数据
+      this.getComments();
     }
   },
   created() {
@@ -251,7 +273,7 @@ export default {
       });
 
       // 获取 评论
-      this.getComments()
+      this.getComments();
     }
   }
   // 过滤器
