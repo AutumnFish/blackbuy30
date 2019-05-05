@@ -48,6 +48,8 @@ Vue.config.productionTip = false
 import axios from 'axios'
 Vue.prototype.$axios = axios;
 
+// 设置axios的基地址
+axios.defaults.baseURL = 'http://111.230.232.110:8899';
 
 new Vue({
   render: h => h(App),
