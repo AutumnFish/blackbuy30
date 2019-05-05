@@ -15,6 +15,11 @@ import index from './components/index.vue'
 import detail from './components/detail.vue'
 // 写规则
 const routes = [
+  // 重定向
+  {
+    path: '/',
+    redirect: '/index'
+  },
   {
     path: '/index',
     component: index
